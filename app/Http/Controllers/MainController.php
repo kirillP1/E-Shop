@@ -25,4 +25,12 @@ class MainController extends Controller
         dump($product);
         return view('product', ['product' => $product]);
     }
+
+    public function basket(){
+        return view('basket');
+    }
+
+    public function order(){
+        return view('order');
+    }
 }
