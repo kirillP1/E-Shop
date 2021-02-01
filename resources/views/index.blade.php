@@ -34,7 +34,9 @@
             </div>
         </form>
         <div class="row">
-            @include('templates.card')
+            @foreach($products as $product)
+                @include('templates.card', compact('product'))
+            @endforeach
         </div>
         <nav>
             <ul class="pagination">

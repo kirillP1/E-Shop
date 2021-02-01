@@ -5,7 +5,7 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="{{ \Illuminate\Support\Facades\Request::is('/') ? 'active' : '' }}"><a href="{{route('index')}}">Все товары</a></li>
+                <li class="{{ \Illuminate\Support\Facades\Request::is('/') || \Illuminate\Support\Facades\Request::is('product/*') ? 'active' : '' }}"><a href="{{route('index')}}">Все товары</a></li>
 
                 <li class="{{ \Illuminate\Support\Facades\Request::is('categories') || \Illuminate\Support\Facades\Request::is('category/*') ? 'active' : '' }}"><a href="{{route('categories')}}">Категории</a>
                 </li>

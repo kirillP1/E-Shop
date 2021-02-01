@@ -6,13 +6,15 @@
 <div class="container">
     <div class="starter-template">
         <h1>
-            {{$category->name}}
+            {{$category->name}} ({{$category->products->count()}})
         </h1>
         <p>
             {{$category->description}}
         </p>
         <div class="row">
-            @include('templates.card', ['category' => $category])
+            @foreach($category->products as $product)
+                @include('templates.card', ['category' => $category, 'product' => $product])
+            @endforeach
         </div>
     </div>
 </div>

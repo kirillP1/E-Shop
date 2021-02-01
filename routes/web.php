@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'MainController@index')
     ->name('index');
 
+Route::get('/product/{product}', 'MainController@product')
+    ->name('product');
+
 Route::get('/basket', 'MainController@basket')
     ->name('basket');
 Route::get('/basket/place', 'MainController@order')
@@ -27,8 +30,8 @@ Route::get('/categories', 'MainController@categories')
 Route::get('/category/{category}', 'MainController@category')
     ->name('category');
 
-Route::get('/category/mobiles/{product}', 'MainController@product')
-    ->name('product');
+Route::get('/category/product/{product}', 'MainController@product')
+    ->name('product_category');
 
 
 
