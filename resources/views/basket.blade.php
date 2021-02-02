@@ -18,12 +18,20 @@
                 </tr>
                 </thead>
                 <tbody>
+                {{$totalPrice = 0}}
+                @if(!empty($order))
+                    @foreach($order->products as $product)
+                        @include('templates.card-basket')
+                        {{$totalPrice = $totalPrice + $product->price}}
+                    @endforeach
+                @else
+                    <p>Нет товаров в корзине</p>
+                 @endif
 
-                @include('templates.card-basket')
 
                 <tr>
                     <td colspan="3">Общая стоимость:</td>
-                    <td>89990 ₽</td>
+                    <td>{{$totalPrice}} ₽</td>
                 </tr>
                 </tbody>
             </table>

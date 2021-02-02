@@ -16,13 +16,18 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'MainController@index')
     ->name('index');
 
+Route::get('/basket', 'BasketController@basket')
+    ->name('basket');
+Route::get('/basket/place', 'BasketController@order')
+    ->name('order');
+Route::post('/basket/add/{id}', 'BasketController@basketAdd')
+    ->name('basket-add');
+
+
+
+
 Route::get('/product/{product}', 'MainController@product')
     ->name('product');
-
-Route::get('/basket', 'MainController@basket')
-    ->name('basket');
-Route::get('/basket/place', 'MainController@order')
-    ->name('order');
 
 Route::get('/categories', 'MainController@categories')
     ->name('categories');
@@ -30,8 +35,9 @@ Route::get('/categories', 'MainController@categories')
 Route::get('/category/{category}', 'MainController@category')
     ->name('category');
 
-Route::get('/category/product/{product}', 'MainController@product')
+Route::get('/category/{category?}/product/{product}', 'MainController@productCategory')
     ->name('product_category');
+
 
 
 

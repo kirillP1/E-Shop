@@ -1,8 +1,8 @@
 <tr>
     <td>
-        <a href="http://internet-shop.tmweb.ru/mobiles/iphone_x_256">
-            <img height="56px" src="http://internet-shop.tmweb.ru/storage/products/iphone_x_silver.jpg">
-            iPhone X 256GB
+        <a href="{{route('product_category', ['category' => $product->category->code, 'product' => $product->id])}}">
+            <img height="56px" src="http://internet-shop.tmweb.ru/storage/products/{{$product->code}}.jpg">
+            {{$product->name}}
         </a>
     </td>
     <td><span class="badge">1</span>
@@ -11,13 +11,14 @@
                 <button type="submit" class="btn btn-danger" href=""><span
                         class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
                 <input type="hidden" name="_token" value="Z8YJU35gtTYpQcpFFK8bwL0RQBBmWmewd9rJTrlw">                            </form>
-            <form action="http://internet-shop.tmweb.ru/basket/add/2" method="POST">
+            <form action="{{route('basket-add', $product->id)}}" method="POST">
+                @csrf
                 <button type="submit" class="btn btn-success"
                         href=""><span
                         class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
-                <input type="hidden" name="_token" value="Z8YJU35gtTYpQcpFFK8bwL0RQBBmWmewd9rJTrlw">                            </form>
+            </form>
         </div>
     </td>
-    <td>89990 ₽</td>
-    <td>89990 ₽</td>
+    <td>{{$product->price}} ₽</td>
+    <td>{{$product->price}} ₽</td>
 </tr>

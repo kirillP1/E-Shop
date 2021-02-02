@@ -24,15 +24,12 @@ class MainController extends Controller
     }
 
     public function product($product){
-        $product = Product::where('id', $product)->first();
+        $product = Product::find($product);
         return view('product', ['product' => $product]);
     }
 
-    public function basket(){
-        return view('basket');
-    }
-
-    public function order(){
-        return view('order');
+    public function productCategory($category = null, $product){
+        $product = Product::find($product);
+        return view('product', ['product' => $product]);
     }
 }
