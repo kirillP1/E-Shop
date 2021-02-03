@@ -7,11 +7,12 @@ use Illuminate\Http\Request;
 
 class BasketController extends Controller
 {
-    public function basket(){
+    public function basket()
+    {
         $orderId = session('orderId');
-        if (!is_null($orderId)){
+        if (!is_null($orderId)) {
             $order = Order::find($orderId);
-        }else{
+        } else {
             $order = '';
         }
 
@@ -21,24 +22,26 @@ class BasketController extends Controller
             $totalPrice = $totalPrice + $product->price;
         }*/
 
-        return view('basket', compact('order', 'totalPrice'));
+        return view('basket', compact('order'));
     }
 
-    public function basketAdd($id){
+    public function basketAdd($id)
+    {
         $orderId = session('orderId');
-        if(is_null($orderId)){
+        if (is_null($orderId)) {
             $order = Order::create();
             session(['orderId' => $order->id]);
-        }else{
+        } else {
             $order = Order::find($orderId);
         }
 
         $order->products()->attach($id);
 
-        return view('basket', compact('order'));
+        return redirect()->route('basket', compact('order'));
     }
 
-    public function order(){
+    public function order()
+    {
         return view('order');
     }
 

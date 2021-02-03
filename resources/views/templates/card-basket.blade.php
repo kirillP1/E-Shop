@@ -10,7 +10,7 @@
             <form action="http://internet-shop.tmweb.ru/basket/remove/2" method="POST">
                 <button type="submit" class="btn btn-danger" href=""><span
                         class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
-                <input type="hidden" name="_token" value="Z8YJU35gtTYpQcpFFK8bwL0RQBBmWmewd9rJTrlw">                            </form>
+                <input type="hidden" name="_token" value="Z8YJU35gtTYpQcpFFK8bwL0RQBBmWmewd9rJTrlw"></form>
             <form action="{{route('basket-add', $product->id)}}" method="POST">
                 @csrf
                 <button type="submit" class="btn btn-success"
