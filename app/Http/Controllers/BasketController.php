@@ -16,11 +16,7 @@ class BasketController extends Controller
             $order = '';
         }
 
-        /*$totalPrice = 0;
 
-        foreach ($order->products as $product){
-            $totalPrice = $totalPrice + $product->price;
-        }*/
 
         return view('basket', compact('order'));
     }
@@ -35,7 +31,32 @@ class BasketController extends Controller
             $order = Order::find($orderId);
         }
 
-        $order->products()->attach($id);
+        if ($order->products->contains($id)){
+            $pivotRow = $order->products()->where('product_id', $id)->first()->pivot;
+            $pivotRow->count++;
+            $pivotRow->update();
+        }else{
+            $order->products()->attach($id);
+        }
+
+        return redirect()->route('basket', compact('order'));
+    }
+
+    public function basketRemove($id){
+        $orderId = session('orderId');
+        if (!is_null($orderId)) {
+            $order = Order::find($orderId);
+
+            if ($order->products->contains($id)){
+                $pivotRow = $order->products()->where('product_id', $id)->first()->pivot;
+                if ($pivotRow->count < 2){
+                    $order->products()->detach($id);
+                }else{
+                    $pivotRow->count--;
+                    $pivotRow->update();
+                }
+            }
+        }
 
         return redirect()->route('basket', compact('order'));
     }

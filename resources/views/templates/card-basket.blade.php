@@ -5,12 +5,13 @@
             {{$product->name}}
         </a>
     </td>
-    <td><span class="badge">1</span>
+    <td><span class="badge">{{$product->pivot->count}}</span>
         <div class="btn-group form-inline">
-            <form action="http://internet-shop.tmweb.ru/basket/remove/2" method="POST">
+            <form action="{{route('basket-remove', $product->id)}}" method="POST">
+                @csrf
                 <button type="submit" class="btn btn-danger" href=""><span
                         class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
-                <input type="hidden" name="_token" value="Z8YJU35gtTYpQcpFFK8bwL0RQBBmWmewd9rJTrlw"></form>
+            </form>
             <form action="{{route('basket-add', $product->id)}}" method="POST">
                 @csrf
                 <button type="submit" class="btn btn-success"
@@ -20,5 +21,5 @@
         </div>
     </td>
     <td>{{$product->price}} ₽</td>
-    <td>{{$product->price}} ₽</td>
+    <td>{{$product->getPriceForCount()}} ₽</td>
 </tr>
