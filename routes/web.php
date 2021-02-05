@@ -13,6 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Auth::routes([
+    'reset' => false,
+    'confirm' => false,
+    'verify' => false,
+]);
+
+Route::get('logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+
+
 Route::get('/', 'MainController@index')
     ->name('index');
 
@@ -41,6 +50,4 @@ Route::get('/category/{category?}/product/{product}', 'MainController@productCat
     ->name('product_category');
 
 
-
-
-
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

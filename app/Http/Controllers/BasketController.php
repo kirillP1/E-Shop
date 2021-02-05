@@ -41,7 +41,7 @@ class BasketController extends Controller
 
         $product = Product::find($id);
 
-        session()->flash('success', 'Добавлен товар '. $product->name .'!');
+        session()->flash('success', 'Добавлен товар ' . $product->name . '!');
 
         return redirect()->route('basket', compact('order'));
     }
@@ -65,7 +65,7 @@ class BasketController extends Controller
 
         $product = Product::find($id);
 
-        session()->flash('warning', 'Удален товар '. $product->name .'!');
+        session()->flash('warning', 'Удален товар ' . $product->name . '!');
 
         return redirect()->route('basket', compact('order'));
     }
@@ -87,13 +87,13 @@ class BasketController extends Controller
         $orderId = session('orderId');
         if (is_null($orderId)) {
             return redirect()->route('index');
-        }else{
+        } else {
             $order = Order::find($orderId);
             $success = $order->saveOrder($request->name, $request->phone);
 
-            if ($success){
+            if ($success) {
                 session()->flash('success', 'Ваш заказ принят в обработку!');
-            }else{
+            } else {
                 session()->flash('warning', 'Случилась ошибка!');
             }
 
