@@ -19,7 +19,15 @@ Auth::routes([
     'verify' => false,
 ]);
 
-Route::get('logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+Route::group([
+    'middleware' => 'auth',
+    'namespace' => 'Admin',
+], function () {
+    Route::get('logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])
+        ->name('logout');
+    Route::get('/orders', 'OrderController@index')
+        ->name('home');
+});
 
 
 Route::get('/', 'MainController@index')
@@ -50,4 +58,4 @@ Route::get('/category/{category?}/product/{product}', 'MainController@productCat
     ->name('product_category');
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
