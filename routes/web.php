@@ -21,28 +21,36 @@ Auth::routes([
 
 Route::group([
     'middleware' => 'auth',
-    'namespace' => 'Admin',
 ], function () {
+    Route::group([
+        'middleware' => 'is_admin',
+        'namespace' => 'Admin',
+    ], function () {
+        Route::get('/orders', 'OrderController@index')
+            ->name('home');
+    });
+    Route::post('/basket/place', 'BasketController@basketConfirm')
+        ->name('basket-confirm');
     Route::get('logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])
         ->name('logout');
-    Route::get('/orders', 'OrderController@index')
-        ->name('home');
 });
 
 
 Route::get('/', 'MainController@index')
     ->name('index');
 
-Route::get('/basket', 'BasketController@basket')
-    ->name('basket');
-Route::get('/basket/place', 'BasketController@order')
-    ->name('order');
-Route::post('/basket/add/{id}', 'BasketController@basketAdd')
-    ->name('basket-add');
-Route::post('/basket/remove/{id}', 'BasketController@basketRemove')
-    ->name('basket-remove');
-Route::post('/basket/place', 'BasketController@basketConfirm')
-    ->name('basket-confirm');
+Route::group([
+    'prefix' => 'basket',
+], function () {
+    Route::get('/', 'BasketController@basket')
+        ->name('basket');
+    Route::get('/place', 'BasketController@order')
+        ->name('order');
+    Route::post('/add/{id}', 'BasketController@basketAdd')
+        ->name('basket-add');
+    Route::post('/remove/{id}', 'BasketController@basketRemove')
+        ->name('basket-remove');
+});
 
 
 Route::get('/product/{product}', 'MainController@product')

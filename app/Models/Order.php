@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Order extends Model
 {
@@ -33,6 +34,7 @@ class Order extends Model
         if ($this->status == 0) {
             $this->name = $name;
             $this->phone = $phone;
+            $this->user_id = Auth::user()->id;
             $this->status = 1;
             $this->save();
             session()->forget('orderId');
