@@ -25,14 +25,17 @@ Route::group([
     Route::group([
         'middleware' => 'is_admin',
         'namespace' => 'Admin',
+        'prefix' => 'admin',
     ], function () {
         Route::get('/orders', 'OrderController@index')
             ->name('home');
+        Route::resource('categories', 'CategoryController');
     });
     Route::post('/basket/place', 'BasketController@basketConfirm')
         ->name('basket-confirm');
     Route::get('logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])
         ->name('logout');
+
 });
 
 
