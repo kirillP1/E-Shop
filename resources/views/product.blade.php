@@ -11,7 +11,11 @@
     <h1>{{$product->name}}</h1>
     <h2>{{$product->category->name}}</h2>
     <p>Цена: <b>{{$product->price}} ₽</b></p>
-    <img alt="{{$product->name}}" src="http://internet-shop.tmweb.ru/storage/products/{{$product->code}}.jpg">
+    <img alt="{{$product->name}}" src="@isset($product->image)
+    {{\Illuminate\Support\Facades\Storage::url($product->image)}}
+    @else
+        http://internet-shop.tmweb.ru/storage/products/{{$product->code}}.jpg
+                         @endisset}}.jpg">
     <p>{{$product->description}}</p>
 
     <form action="http://internet-shop.tmweb.ru/basket/add/{{$product->id}}" method="POST">

@@ -43,6 +43,11 @@ class User extends Authenticatable
 
     public function isAdmin()
     {
-        return $this->is_admin === 1;
+        if ($this->where('is_admin', 1)->first()) {
+            return $this->where('is_admin', 1)->first();
+        } else {
+            return false;
+        }
+
     }
 }

@@ -1,7 +1,11 @@
 <tr>
     <td>
         <a href="{{route('product_category', ['category' => $product->category->code, 'product' => $product->id])}}">
-            <img height="56px" src="http://internet-shop.tmweb.ru/storage/products/{{$product->code}}.jpg">
+            <img height="56px" src="@isset($product->image)
+            {{\Illuminate\Support\Facades\Storage::url($product->image)}}
+            @else
+                http://internet-shop.tmweb.ru/storage/products/{{$product->code}}.jpg
+                         @endisset">
             {{$product->name}}
         </a>
     </td>

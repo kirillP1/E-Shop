@@ -30,6 +30,7 @@ Route::group([
         Route::get('/orders', 'OrderController@index')
             ->name('home');
         Route::resource('categories', 'CategoryController');
+        Route::resource('products', 'ProductController');
     });
     Route::post('/basket/place', 'BasketController@basketConfirm')
         ->name('basket-confirm');

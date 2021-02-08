@@ -4,7 +4,11 @@
 
 
         </div>
-        <img src="http://internet-shop.tmweb.ru/storage/products/{{$product->code}}.jpg" alt="{{$product->name}}">
+        <img src="@isset($product->image)
+        {{\Illuminate\Support\Facades\Storage::url($product->image)}}
+        @else
+            http://internet-shop.tmweb.ru/storage/products/{{$product->code}}.jpg
+                         @endisset" alt="{{$product->name}}">
         <div class="caption">
             <h3>{{$product->name}}</h3>
             <p>{{$product->price}} ₽</p>

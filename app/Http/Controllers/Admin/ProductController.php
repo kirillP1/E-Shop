@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class CategoryController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +17,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        $products = Product::all();
 
-        return view('auth.categories.index', compact('categories'));
+        return view('auth.products.index', compact('products'));
     }
 
     /**
@@ -28,7 +29,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('auth.categories.form');
+        $categories = Category::all();
+        return view('auth.products.form', compact('categories'));
     }
 
     /**
@@ -39,66 +41,66 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $path = $request->file('image')->store('categories');
+        $path = $request->file('image')->store('products');
         $params = $request->toArray();
         $params['image'] = $path;
+        Product::create($params);
 
-        Category::create($params);
-
-        return redirect()->route('categories.index');
+        return redirect()->route('products.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\Category $category
+     * @param \App\Models\Product $product
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Product $product)
     {
-        return view('auth.categories.show', compact('category'));
+        return view('auth.products.show', compact('product'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Models\Category $category
+     * @param \App\Models\Product $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit(Product $product)
     {
-        return view('auth.categories.form', compact('category'));
+        $categories = Category::all();
+        return view('auth.products.form', compact('product', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Category $category
+     * @param \App\Models\Product $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Product $product)
     {
-        Storage::delete($category->image);
-        $path = $request->file('image')->store('categories');
+        Storage::delete($product->image);
+        $path = $request->file('image')->store('products');
         $params = $request->toArray();
         $params['image'] = $path;
 
-        $category->update($params);
+        $product->update($params);
 
-        return redirect()->route('categories.index');
+        return redirect()->route('products.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\Category $category
+     * @param \App\Models\Product $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Product $product)
     {
-        $category->delete();
+        $product->delete();
 
-        return redirect()->route('categories.index');
+        return redirect()->route('products.index');
     }
 }

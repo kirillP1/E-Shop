@@ -5,12 +5,15 @@
         </a>
 
         <div id="navbar" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li><a href="{{route('categories.index')}}">Категории</a></li>
-                <li><a href="{{route('home')}}">Товары</a></li>
-                <li><a href="{{route('home')}}">Заказы</a></li>
-            </ul>
-
+            @if (auth()->check())
+                @if(auth()->user()->isAdmin())
+                    <ul class="nav navbar-nav">
+                        <li><a href="{{route('categories.index')}}">Категории</a></li>
+                        <li><a href="{{route('products.index')}}">Товары</a></li>
+                        <li><a href="{{route('home')}}">Заказы</a></li>
+                    </ul>
+                @endif
+            @endif
             <ul class="nav navbar-nav navbar-right">
                 @guest
                     <li class="nav-item">
