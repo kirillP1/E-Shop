@@ -25,7 +25,12 @@
                     <label for="code" class="col-sm-2 col-form-label">Код: </label>
                     <div class="col-sm-6">
                         <input type="text" class="form-control" name="code" id="code"
-                               value="@isset($product){{ $product->code }}@endisset">
+                               value="{{old('code', isset($product) ? $product->code : null)}}">
+                        @error('code')
+                        <div class="alert alert-danger">
+                            {{$message}}
+                        </div>
+                        @enderror
                     </div>
                 </div>
                 <br>
@@ -33,7 +38,12 @@
                     <label for="name" class="col-sm-2 col-form-label">Название: </label>
                     <div class="col-sm-6">
                         <input type="text" class="form-control" name="name" id="name"
-                               value="@isset($product){{ $product->name }}@endisset">
+                               value="{{old('name', isset($product) ? $product->name : null)}}">
+                        @error('name')
+                        <div class="alert alert-danger">
+                            {{$message}}
+                        </div>
+                        @enderror
                     </div>
                 </div>
                 <br>
@@ -58,7 +68,12 @@
                     <label for="description" class="col-sm-2 col-form-label">Описание: </label>
                     <div class="col-sm-6">
 								<textarea name="description" id="description" cols="72"
-                                          rows="7">@isset($product){{ $product->description }}@endisset</textarea>
+                                          rows="7">{{old('description', isset($product) ? $product->description : null)}}</textarea>
+                        @error('description')
+                        <div class="alert alert-danger">
+                            {{$message}}
+                        </div>
+                        @enderror
                     </div>
                 </div>
                 <br>
@@ -75,7 +90,12 @@
                     <label for="price" class="col-sm-2 col-form-label">Цена: </label>
                     <div class="col-sm-2">
                         <input type="text" class="form-control" name="price" id="price"
-                               value="@isset($product){{ $product->price }}@endisset">
+                               value="{{old('price', isset($product) ? $product->price : null)}}">
+                        @error('price')
+                        <div class="alert alert-danger">
+                            {{$message}}
+                        </div>
+                        @enderror
                     </div>
                 </div>
                 <button class="btn btn-success">Сохранить</button>

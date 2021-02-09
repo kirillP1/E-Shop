@@ -26,7 +26,12 @@
                     <label for="code" class="col-sm-2 col-form-label">Код: </label>
                     <div class="col-sm-6">
                         <input type="text" class="form-control" name="code" id="code"
-                               value="@isset($category){{ $category->code }}@endisset">
+                               value="{{old('code', isset($category) ? $category->code : null)}}">
+                        @error('code')
+                        <div class="alert alert-danger">
+                            {{$message}}
+                        </div>
+                        @enderror
                     </div>
                 </div>
                 <br>
@@ -34,7 +39,12 @@
                     <label for="name" class="col-sm-2 col-form-label">Название: </label>
                     <div class="col-sm-6">
                         <input type="text" class="form-control" name="name" id="name"
-                               value="@isset($category){{ $category->name }}@endisset">
+                               value="{{old('name', isset($category) ? $category->name : null)}}">
+                        @error('name')
+                        <div class="alert alert-danger">
+                            {{$message}}
+                        </div>
+                        @enderror
                     </div>
                 </div>
                 <br>
@@ -42,7 +52,12 @@
                     <label for="description" class="col-sm-2 col-form-label">Описание: </label>
                     <div class="col-sm-6">
 							<textarea name="description" id="description" cols="72"
-                                      rows="7">@isset($category){{ $category->description }}@endisset</textarea>
+                                      rows="7">{{old('description', isset($category) ? $category->description : null)}}</textarea>
+                        @error('description')
+                        <div class="alert alert-danger">
+                            {{$message}}
+                        </div>
+                        @enderror
                     </div>
                 </div>
                 <br>
