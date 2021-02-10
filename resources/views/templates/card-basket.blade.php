@@ -1,6 +1,6 @@
 <tr>
     <td>
-        <a href="{{route('product_category', ['category' => $product->category->code, 'product' => $product->id])}}">
+        <a href="{{route('category_product', ['category' => $product->category->code, 'product' => $product->id])}}">
             <img height="56px" src="@isset($product->image)
             {{\Illuminate\Support\Facades\Storage::url($product->image)}}
             @else

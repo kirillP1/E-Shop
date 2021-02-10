@@ -18,7 +18,7 @@
                 @csrf
                 <button type="submit" class="btn btn-primary" role="button">В корзину</button>
                 @if(isset($category))
-                    <a href="{{route('product_category', ['product' => $product->id, 'category' => $category->code])}}"
+                    <a href="{{route('category_product', ['product' => $product->id, 'category' => $category->code])}}"
                        class="btn btn-default" role="button">Подробнее</a>
                 @else
                     <a href="{{route('product', $product->id)}}" class="btn btn-default" role="button">Подробнее</a>

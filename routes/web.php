@@ -49,7 +49,7 @@ Route::group([
     Route::get('/', 'BasketController@basket')
         ->name('basket');
     Route::get('/place', 'BasketController@order')
-        ->name('order');
+        ->name('basket-order');
     Route::post('/add/{id}', 'BasketController@basketAdd')
         ->name('basket-add');
     Route::post('/remove/{id}', 'BasketController@basketRemove')
@@ -67,7 +67,7 @@ Route::get('/category/{category}', 'MainController@category')
     ->name('category');
 
 Route::get('/category/{category?}/product/{product}', 'MainController@productCategory')
-    ->name('product_category');
+    ->name('category_product');
 
 
 

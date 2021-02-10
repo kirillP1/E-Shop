@@ -5,14 +5,16 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="{{ \Illuminate\Support\Facades\Request::is('/') || \Illuminate\Support\Facades\Request::is('product/*') ? 'active' : '' }}">
-                    <a href="{{route('index')}}">Все товары</a></li>
+                <li @routeactive('product*', 'index')>
+                    <a href="{{route('index')}}">Все товары</a>
+                </li>
 
-                <li class="{{ \Illuminate\Support\Facades\Request::is('categories') || \Illuminate\Support\Facades\Request::is('category/*') ? 'active' : '' }}">
+                <li @routeactive('categor*')>
                     <a href="{{route('categories')}}">Категории</a>
                 </li>
-                <li class="{{ \Illuminate\Support\Facades\Request::is('basket') || \Illuminate\Support\Facades\Request::is('basket/*') ? 'active' : '' }}">
-                    <a href="{{route('basket')}}">В корзину</a></li>
+                <li @routeactive('basket*')>
+                    <a href="{{route('basket')}}">В корзину</a>
+                </li>
                 <li><a href="{{route('index')}}">Сбросить проект в начальное состояние</a></li>
                 <li><a href="http://internet-shop.tmweb.ru/locale/en">en</a></li>
 

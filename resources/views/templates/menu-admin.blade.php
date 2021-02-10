@@ -8,9 +8,9 @@
             @if (auth()->check())
                 @if(auth()->user()->isAdmin())
                     <ul class="nav navbar-nav">
-                        <li><a href="{{route('categories.index')}}">Категории</a></li>
-                        <li><a href="{{route('products.index')}}">Товары</a></li>
-                        <li><a href="{{route('home')}}">Заказы</a></li>
+                        <li @routeactive('categor*')><a href="{{route('categories.index')}}">Категории</a></li>
+                        <li @routeactive('product*')><a href="{{route('products.index')}}">Товары</a></li>
+                        <li @routeactive('order*', 'home')><a href="{{route('home')}}">Заказы</a></li>
                     </ul>
                 @endif
             @endif
