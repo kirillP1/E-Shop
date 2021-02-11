@@ -31,11 +31,16 @@
 
             <ul class="nav navbar-nav navbar-right">
                 @guest
-                    <li><a href="{{route('login')}}">Панель администратора</a></li>
+                    <li><a href="{{route('login')}}">Войти</a></li>
                 @else
+                    @admin
                     <li><a href="{{route('home')}}">Панель администратора</a></li>
-                    <li><a href="{{route('logout')}}">Выйти</a></li>
-                @endguest
+                    @else
+                        <li><a href="{{route('person.orders.index')}}">Мои заказы</a></li>
+                        @endadmin
+
+                        <li><a href="{{route('logout')}}">Выйти</a></li>
+                    @endguest
 
             </ul>
         </div>

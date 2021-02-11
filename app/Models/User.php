@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -43,11 +44,11 @@ class User extends Authenticatable
 
     public function isAdmin()
     {
-        if ($this->where('is_admin', 1)->first()) {
-            return $this->where('is_admin', 1)->first();
-        } else {
-            return false;
-        }
+        return $this->is_admin === 1;
+    }
 
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 }

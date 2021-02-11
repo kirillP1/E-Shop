@@ -22,6 +22,23 @@ Auth::routes([
 Route::group([
     'middleware' => 'auth',
 ], function () {
+    Route::post('/basket/place', 'BasketController@basketConfirm')
+        ->name('basket-confirm');
+    Route::get('logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])
+        ->name('logout');
+
+    Route::group([
+        'namespace' => 'Person',
+        'prefix' => 'person',
+        'as' => 'person.'
+    ], function () {
+        Route::get('/orders', 'OrderController@index')
+            ->name('orders.index');
+        Route::get('/orders/{order}', 'OrderController@show')
+            ->name('orders.show');
+    });
+
+
     Route::group([
         'middleware' => 'is_admin',
         'namespace' => 'Admin',
@@ -29,14 +46,11 @@ Route::group([
     ], function () {
         Route::get('/orders', 'OrderController@index')
             ->name('home');
+        Route::get('/orders/{order}', 'OrderController@show')
+            ->name('orders-show');
         Route::resource('categories', 'CategoryController');
         Route::resource('products', 'ProductController');
     });
-    Route::post('/basket/place', 'BasketController@basketConfirm')
-        ->name('basket-confirm');
-    Route::get('logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])
-        ->name('logout');
-
 });
 
 

@@ -26,7 +26,11 @@
                     <td>{{$order->totalPrice()}} ₽</td>
                     <td>
                         <div class="btn-group" role="group">
-                            <a href="/" class="btn btn-success" type="button">Открыть</a>
+                            @admin
+                            <a href="{{route('orders-show', $order)}}" class="btn btn-success" type="button">Открыть</a>
+                            @else
+                                <a href="{{route('person.orders.show', $order)}}" class="btn btn-success" type="button">Открыть</a>
+                                @endadmin
                         </div>
                     </td>
                 </tr>
