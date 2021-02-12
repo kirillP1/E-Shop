@@ -83,5 +83,6 @@ Route::get('/category/{category}', 'MainController@category')
 Route::get('/category/{category?}/product/{product}', 'MainController@productCategory')
     ->name('category_product');
 
-
+Route::get('reset', 'ResetController@reset')
+    ->name('reset_db');
 
