@@ -96,8 +96,8 @@ class ProductController extends Controller
             $params['image'] = $path;
         }
 
-        foreach (['new', 'hit', 'recommend'] as $fieldName){
-            if (!isset($params[$fieldName])){
+        foreach (['new', 'hit', 'recommend'] as $fieldName) {
+            if (!isset($params[$fieldName])) {
                 $params[$fieldName] = 0;
             }
         }

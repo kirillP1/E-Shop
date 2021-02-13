@@ -99,26 +99,26 @@
                     </div>
                 </div>
                 <br>
-                 @foreach([
-                    'new' => 'Новинка',
-                    'hit' => 'Хит',
-                    'recommend' => 'Рекоммендуем',
-                 ] as $field => $title)
-                        <div class="input-group row">
-                            <label for="code" class="col-sm-2 col-form-label">{{$title}}: </label>
-                            <div class="col-sm-6">
-                                <input type="checkbox" name="{{$field}}" id="{{$field}}"
-                                       @if(isset($product) && $product->$field === 1)
-                                            checked="checked"
-                                       @endif>
-                                @error('code')
-                                <div class="alert alert-danger">
-                                    {{$message}}
-                                </div>
-                                @enderror
+                @foreach([
+                   'new' => 'Новинка',
+                   'hit' => 'Хит',
+                   'recommend' => 'Рекоммендуем',
+                ] as $field => $title)
+                    <div class="input-group row">
+                        <label for="code" class="col-sm-2 col-form-label">{{$title}}: </label>
+                        <div class="col-sm-6">
+                            <input type="checkbox" name="{{$field}}" id="{{$field}}"
+                                   @if(isset($product) && $product->$field === 1)
+                                   checked="checked"
+                                @endif>
+                            @error('code')
+                            <div class="alert alert-danger">
+                                {{$message}}
                             </div>
+                            @enderror
                         </div>
-                 @endforeach
+                    </div>
+                @endforeach
                 <button class="btn btn-success">Сохранить</button>
             </div>
         </form>
