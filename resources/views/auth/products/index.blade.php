@@ -50,6 +50,11 @@
             @endforeach
             </tbody>
         </table>
+
         <a class="btn btn-success" type="button" href="{{ route('products.create') }}">Добавить товар</a>
+        <br>
+        <br>
+        {{$products->links()}}
     </div>
+
 @endsection

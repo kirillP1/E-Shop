@@ -37,5 +37,8 @@
             @endforeach
             </tbody>
         </table>
+        <br>
+        <br>
+        {{$orders->links()}}
     </div>
 @endsection
