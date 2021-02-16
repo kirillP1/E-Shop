@@ -7,12 +7,14 @@ use App\Http\Requests\ProductsFilterRequest;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class MainController extends Controller
 {
     public function index(ProductsFilterRequest $request)
     {
-        $productsQuery = Product::query();
+        Log::info($request->ip());
+        $productsQuery = Product::with('category');
 
         if ($request->filled('price_from')) {
             $productsQuery->where('price', '>=', $request->price_from);
@@ -20,14 +22,14 @@ class MainController extends Controller
         if ($request->filled('price_to')) {
             $productsQuery->where('price', '<=', $request->price_to);
         }
+
         foreach ([
                      'hit',
                      'recommend',
                      'new',
                  ] as $item) {
-
             if ($request->has($item)) {
-                $productsQuery->where($item, 1);
+                $productsQuery->$item();
             }
         }
 
@@ -39,6 +41,7 @@ class MainController extends Controller
 
     public function categories()
     {
+
         $categories = Category::all();
         return view('categories', compact('categories'));
     }

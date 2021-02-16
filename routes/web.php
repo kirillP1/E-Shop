@@ -62,12 +62,15 @@ Route::group([
 ], function () {
     Route::get('/', 'BasketController@basket')
         ->name('basket');
+
+
     Route::get('/place', 'BasketController@order')
         ->name('basket-order');
     Route::post('/add/{id}', 'BasketController@basketAdd')
         ->name('basket-add');
     Route::post('/remove/{id}', 'BasketController@basketRemove')
         ->name('basket-remove');
+
 });
 
 

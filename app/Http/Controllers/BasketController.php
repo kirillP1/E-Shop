@@ -41,6 +41,8 @@ class BasketController extends Controller
 
         $product = Product::find($id);
 
+        Order::changeFullSum($product->price);
+
         session()->flash('success', 'Добавлен товар ' . $product->name . '!');
 
         return redirect()->route('basket', compact('order'));
@@ -64,6 +66,8 @@ class BasketController extends Controller
         }
 
         $product = Product::find($id);
+
+        Order::changeFullSum(-$product->price);
 
         session()->flash('warning', 'Удален товар ' . $product->name . '!');
 
@@ -97,6 +101,7 @@ class BasketController extends Controller
                 session()->flash('warning', 'Случилась ошибка!');
             }
 
+            Order::eraseFullSum();
 
             return redirect()->route('index');
         }
