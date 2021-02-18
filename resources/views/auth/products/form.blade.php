@@ -99,6 +99,19 @@
                     </div>
                 </div>
                 <br>
+                <div class="input-group row">
+                    <label for="count" class="col-sm-2 col-form-label">Кол-во товаров: </label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" name="count" id="count"
+                               value="{{old('count', isset($product) ? $product->count : null)}}">
+                        @error('count')
+                        <div class="alert alert-danger">
+                            {{$message}}
+                        </div>
+                        @enderror
+                    </div>
+                </div>
+                <br>
                 @foreach([
                    'new' => 'Новинка',
                    'hit' => 'Хит',

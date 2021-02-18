@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
-
+    use SoftDeletes;
     use HasFactory;
 
     protected $guarded = [
@@ -42,6 +43,11 @@ class Product extends Model
         return $query->where('recommend', 1);
     }
 
+
+
+    public function isAvailable(){
+        return !$this->trashed() && $this->count > 0;
+    }
 
     public function isNew()
     {

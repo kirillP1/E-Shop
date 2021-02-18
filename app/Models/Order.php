@@ -23,7 +23,7 @@ class Order extends Model
     public function totalPrice()
     {
         $totalPrice = 0;
-        foreach ($this->products as $product) {
+        foreach ($this->products()->withTrashed()->get() as $product) {
             $totalPrice = $totalPrice + $product->getPriceForCount();
         }
         return $totalPrice;

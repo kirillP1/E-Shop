@@ -32,6 +32,14 @@
                 <td>{{ $product->description }}</td>
             </tr>
             <tr>
+                <td>Цена</td>
+                <td>{{ $product->price }}</td>
+            </tr>
+            <tr>
+                <td>Кол-во</td>
+                <td>{{ $product->count }}</td>
+            </tr>
+            <tr>
                 <td>Картинка</td>
                 <td><img src="@isset($product->image)
                     {{\Illuminate\Support\Facades\Storage::url($product->image)}}

@@ -19,8 +19,11 @@
     <p>{{$product->description}}</p>
 
     <form action="http://internet-shop.tmweb.ru/basket/add/{{$product->id}}" method="POST">
-        <button type="submit" class="btn btn-success" role="button">Добавить в корзину</button>
-
+        @if($product->isAvailable())
+            <button type="submit" class="btn btn-success" role="button">Добавить в корзину</button>
+        @else
+            <span>Товар не доступен</span>
+        @endif
         <input type="hidden" name="_token" value="UmLkczUeWhLgp7mwVr9FnPBKzWfm9evokBe4dn0x">
     </form>
 
