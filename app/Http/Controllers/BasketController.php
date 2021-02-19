@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\Basket;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -10,101 +11,56 @@ class BasketController extends Controller
 {
     public function basket()
     {
-        $orderId = session('orderId');
-        if (!is_null($orderId)) {
-            $order = Order::find($orderId);
-        } else {
-            $order = '';
-        }
-
+        $order = (new Basket())->getOrder();
 
         return view('basket', compact('order'));
     }
 
-    public function basketAdd($id)
+    public function basketAdd(Product $product)
     {
-        $orderId = session('orderId');
-        if (is_null($orderId)) {
-            $order = Order::create();
-            session(['orderId' => $order->id]);
+        $result = (new Basket(true))->addProduct($product);
+
+        if ($result) {
+            session()->flash('success', 'Добавлен товар ' . $product->name . '!');
         } else {
-            $order = Order::find($orderId);
+            session()->flash('warning', 'Товар ' . $product->name . ' не доступен!');
         }
 
-        if ($order->products->contains($id)) {
-            $pivotRow = $order->products()->where('product_id', $id)->first()->pivot;
-            $pivotRow->count++;
-            $pivotRow->update();
-        } else {
-            $order->products()->attach($id);
-        }
 
-        $product = Product::find($id);
-
-        Order::changeFullSum($product->price);
-
-        session()->flash('success', 'Добавлен товар ' . $product->name . '!');
-
-        return redirect()->route('basket', compact('order'));
+        return redirect()->route('basket');
     }
 
-    public function basketRemove($id)
+    public function basketRemove(Product $product)
     {
-        $orderId = session('orderId');
-        if (!is_null($orderId)) {
-            $order = Order::find($orderId);
-
-            if ($order->products->contains($id)) {
-                $pivotRow = $order->products()->where('product_id', $id)->first()->pivot;
-                if ($pivotRow->count < 2) {
-                    $order->products()->detach($id);
-                } else {
-                    $pivotRow->count--;
-                    $pivotRow->update();
-                }
-            }
-        }
-
-        $product = Product::find($id);
-
-        Order::changeFullSum(-$product->price);
+        (new Basket())->removeProduct($product);
 
         session()->flash('warning', 'Удален товар ' . $product->name . '!');
 
-        return redirect()->route('basket', compact('order'));
+        return redirect()->route('basket');
     }
 
     public function order()
     {
-        $orderId = session('orderId');
-        if (is_null($orderId)) {
-            return redirect()->route('index');
-        } else {
-            $order = Order::find($orderId);
-            return view('order', compact('order'));
+        $basket = new Basket();
+        $order = $basket->getOrder();
+        if (!$basket->countAvailable()) {
+            session()->flash('warning', 'Товар не доступен!');
+            return redirect()->route('basket');
         }
+        return view('order', compact('order'));
     }
 
     public function basketConfirm(Request $request)
     {
-
-        $orderId = session('orderId');
-        if (is_null($orderId)) {
-            return redirect()->route('index');
+        if ((new Basket())->saveOrder($request->name, $request->phone)) {
+            session()->flash('success', 'Ваш заказ принят в обработку!');
         } else {
-            $order = Order::find($orderId);
-            $success = $order->saveOrder($request->name, $request->phone);
-
-            if ($success) {
-                session()->flash('success', 'Ваш заказ принят в обработку!');
-            } else {
-                session()->flash('warning', 'Случилась ошибка!');
-            }
-
-            Order::eraseFullSum();
-
-            return redirect()->route('index');
+            session()->flash('warning', 'Случилась ошибка!');
         }
+
+        Order::eraseFullSum();
+
+        return redirect()->route('index');
     }
 
 }

@@ -44,8 +44,8 @@ class Product extends Model
     }
 
 
-
-    public function isAvailable(){
+    public function isAvailable()
+    {
         return !$this->trashed() && $this->count > 0;
     }
 

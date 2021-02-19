@@ -24,7 +24,7 @@
             <form action="{{route('basket-add', $product->id)}}" method="POST">
                 @csrf
                 @if($product->isAvailable())
-                <button type="submit" class="btn btn-primary" role="button">В корзину</button>
+                    <button type="submit" class="btn btn-primary" role="button">В корзину</button>
                 @else
                     <span>Товар не доступен</span>
                 @endif

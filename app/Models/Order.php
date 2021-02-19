@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class Order extends Model
 {
     use HasFactory;
+    protected $guarded = [];
 
     public function products()
     {
