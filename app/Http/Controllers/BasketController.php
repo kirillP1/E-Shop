@@ -6,6 +6,7 @@ use App\Classes\Basket;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BasketController extends Controller
 {
@@ -52,7 +53,9 @@ class BasketController extends Controller
 
     public function basketConfirm(Request $request)
     {
-        if ((new Basket())->saveOrder($request->name, $request->phone)) {
+        $email = Auth::check() ? Auth::user()->email : $request->email;
+
+        if ((new Basket())->saveOrder($request->name, $request->phone, $email)) {
             session()->flash('success', 'Ваш заказ принят в обработку!');
         } else {
             session()->flash('warning', 'Случилась ошибка!');

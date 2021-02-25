@@ -51,7 +51,9 @@ class Order extends Model
         if ($this->status == 0) {
             $this->name = $name;
             $this->phone = $phone;
-            $this->user_id = Auth::user()->id;
+            if (Auth::user()) {
+                $this->user_id = Auth::user()->id;
+            }
             $this->status = 1;
             $this->save();
             session()->forget('orderId');

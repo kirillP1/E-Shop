@@ -22,8 +22,7 @@ Auth::routes([
 Route::group([
     'middleware' => 'auth',
 ], function () {
-    Route::post('/basket/place', 'BasketController@basketConfirm')
-        ->name('basket-confirm');
+
     Route::get('logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])
         ->name('logout');
 
@@ -70,7 +69,8 @@ Route::group([
         ->name('basket-add');
     Route::post('/remove/{product}', 'BasketController@basketRemove')
         ->name('basket-remove');
-
+    Route::post('/basket/place', 'BasketController@basketConfirm')
+        ->name('basket-confirm');
 });
 
 
