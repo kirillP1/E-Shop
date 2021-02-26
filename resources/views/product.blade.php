@@ -18,14 +18,25 @@
                          @endisset}}.jpg">
     <p>{{$product->description}}</p>
 
-    <form action="{{route('basket-add', $product->id)}}" method="POST">
-        @if($product->isAvailable())
-            <button type="submit" class="btn btn-success" role="button">Добавить в корзину</button>
-        @else
-            <span>Товар не доступен</span>
-        @endif
-        @csrf
-    </form>
 
+    @if($product->isAvailable())
+        <form action="{{route('basket-add', $product->id)}}" method="POST">
+            <button type="submit" class="btn btn-success" role="button">Добавить в корзину</button>
+        </form>
+        @csrf
+    @else
+        <p>Товар не доступен</p>
+        <span>Сообщить мне, когда товар появится в наличии: </span>
+        <div class="warning">
+            @if($errors->get('email'))
+                {!! $errors->get('email')[0] !!}
+            @endif
+        </div>
+        <form action="{{route('subscription', $product->id)}}" method="POST">
+            <input type="text" name="email">
+            <button type="submit">Отправить</button>
+            @csrf
+        </form>
+    @endif
 @endsection
 

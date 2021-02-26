@@ -42,6 +42,7 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
+
         $params = $request->toArray();
         unset($params['image']);
 
@@ -74,7 +75,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $categories = Category::all();
+        $categories = Category::get();
         return view('auth.products.form', compact('product', 'categories'));
     }
 
@@ -82,18 +83,16 @@ class ProductController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Product $product
+     * @param \App\Product $product
      * @return \Illuminate\Http\Response
      */
     public function update(ProductRequest $request, Product $product)
     {
-        $params = $request->toArray();
+        $params = $request->all();
         unset($params['image']);
-
         if ($request->has('image')) {
             Storage::delete($product->image);
-            $path = $request->file('image')->store('products');
-            $params['image'] = $path;
+            $params['image'] = $request->file('image')->store('products');
         }
 
         foreach (['new', 'hit', 'recommend'] as $fieldName) {
@@ -102,8 +101,9 @@ class ProductController extends Controller
             }
         }
 
-        $product->update($params);
+//        dd($params);
 
+        $product->update($params);
         return redirect()->route('products.index');
     }
 

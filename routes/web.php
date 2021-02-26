@@ -52,10 +52,6 @@ Route::group([
     });
 });
 
-
-Route::get('/', 'MainController@index')
-    ->name('index');
-
 Route::group([
     'prefix' => 'basket',
 ], function () {
@@ -72,6 +68,12 @@ Route::group([
     Route::post('/basket/place', 'BasketController@basketConfirm')
         ->name('basket-confirm');
 });
+
+
+Route::get('/', 'MainController@index')
+    ->name('index');
+Route::post('subscription/{product}', 'MainController@subscribe')
+    ->name('subscription');
 
 
 Route::get('/product/{product}', 'MainController@product')
