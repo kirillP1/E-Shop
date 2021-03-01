@@ -1,22 +1,22 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="{{route('index')}}">Интернет Магазин</a>
+            <a class="navbar-brand" href="{{route('index')}}">@lang('main.online_shop')</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li @routeactive('product*', 'index')>
-                    <a href="{{route('index')}}">Все товары</a>
+                    <a href="{{route('index')}}">@lang('main.menu.all')</a>
                 </li>
 
                 <li @routeactive('categor*')>
-                    <a href="{{route('categories')}}">Категории</a>
+                    <a href="{{route('categories')}}">@lang('main.menu.categories')</a>
                 </li>
                 <li @routeactive('basket*')>
-                    <a href="{{route('basket')}}">В корзину</a>
+                    <a href="{{route('basket')}}">@lang('main.menu.basket')</a>
                 </li>
-                <li><a href="{{route('reset_db')}}">Сбросить проект в начальное состояние</a></li>
-                <li><a href="http://internet-shop.tmweb.ru/locale/en">en</a></li>
+                <li><a href="{{route('reset_db')}}">@lang('main.menu.initial')</a></li>
+                <li><a href="{{route('locale', __('main.menu.language'))}}">@lang('main.menu.language')</a></li>
 
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"

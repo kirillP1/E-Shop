@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 
 class MainController extends Controller
@@ -68,12 +69,22 @@ class MainController extends Controller
 
     public function subscribe(SubsciptionRequest $request, Product $product)
     {
-        dd($request);
         Subscription::create([
             'email' => $request->email,
             'product_id' => $product->id,
         ]);
 
         return redirect()->back()->with('success', 'Спасибо, мы свяжемся с вами о поступлении товара');
+    }
+
+    public function changeLocale($locale)
+    {
+        $availableLocales = ['ru', 'en'];
+        if (!in_array($locale, $availableLocales)) {
+            $locale = config('app.locale');
+        }
+        session(['locale' => $locale]);
+        App::setLocale($locale);
+        return redirect()->back();
     }
 }
