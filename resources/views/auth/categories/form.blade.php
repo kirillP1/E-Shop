@@ -49,10 +49,31 @@
                 </div>
                 <br>
                 <div class="input-group row">
+                    <label for="name_en" class="col-sm-2 col-form-label">Название: </label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" name="name_en" id="name_en"
+                               value="{{old('name_en', isset($category) ? $category->name_en : null)}}">
+                    </div>
+                </div>
+                <br>
+                <div class="input-group row">
                     <label for="description" class="col-sm-2 col-form-label">Описание: </label>
                     <div class="col-sm-6">
 							<textarea name="description" id="description" cols="72"
                                       rows="7">{{old('description', isset($category) ? $category->description : null)}}</textarea>
+                        @error('description')
+                        <div class="alert alert-danger">
+                            {{$message}}
+                        </div>
+                        @enderror
+                    </div>
+                </div>
+                <br>
+                <div class="input-group row">
+                    <label for="description_en" class="col-sm-2 col-form-label">Описание: </label>
+                    <div class="col-sm-6">
+							<textarea name="description_en" id="description_en" cols="72"
+                                      rows="7">{{old('description_en', isset($category) ? $category->description_en : null)}}</textarea>
                         @error('description')
                         <div class="alert alert-danger">
                             {{$message}}

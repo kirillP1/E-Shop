@@ -6,7 +6,7 @@
             @else
                 http://internet-shop.tmweb.ru/storage/products/{{$product->code}}.jpg
                          @endisset">
-            {{$product->name}}
+            {{$product->__('name')}}
         </a>
     </td>
     <td><span class="badge">{{$product->pivot->count}}</span>

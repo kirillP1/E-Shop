@@ -17,9 +17,9 @@
             http://internet-shop.tmweb.ru/storage/products/{{$product->code}}.jpg
                          @endisset" alt="{{$product->name}}">
         <div class="caption">
-            <h3>{{$product->name}}</h3>
+            <h3>{{$product->__('name')}}</h3>
             <p>{{$product->price}} ₽</p>
-            <p>{{$product->category->name}}
+            <p>{{$product->category->__('name')}}
             </p>
             <form action="{{route('basket-add', $product->id)}}" method="POST">
                 @csrf
