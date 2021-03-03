@@ -10,7 +10,7 @@
 
     <h1>{{$product->name}}</h1>
     <h2>{{$product->category->name}}</h2>
-    <p>Цена: <b>{{$product->price}} ₽</b></p>
+    <p>Цена: <b>{{$product->price}} {{App\Services\CurrencyConversion::getCurrencySymbol()}}</b></p>
     <img alt="{{$product->name}}" src="@isset($product->image)
     {{\Illuminate\Support\Facades\Storage::url($product->image)}}
     @else

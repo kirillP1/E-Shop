@@ -29,9 +29,9 @@
             <tr>
                 <td colspan="3">Общая стоимость:</td>
                 @if(!empty($order))
-                    <td>{{$order->totalPrice()}} ₽</td>
+                    <td>{{$order->totalPrice()}} {{App\Services\CurrencyConversion::getCurrencySymbol()}}</td>
                 @else
-                    <td>0 ₽</td>
+                    <td>0 {{App\Services\CurrencyConversion::getCurrencySymbol()}}</td>
                 @endif
             </tr>
             </tbody>

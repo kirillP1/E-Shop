@@ -23,7 +23,7 @@
                     <td>{{$order->name}}</td>
                     <td>{{$order->phone}}</td>
                     <td>{{$order->created_at->format('H:m d/m/Y')}}</td>
-                    <td>{{$order->totalPrice()}} ₽</td>
+                    <td>{{$order->totalPrice()}} {{App\Services\CurrencyConversion::getCurrencySymbol()}}</td>
                     <td>
                         <div class="btn-group" role="group">
                             @admin

@@ -24,6 +24,9 @@ Route::group([
     Route::get('locale/{locale}', 'MainController@changeLocale')
         ->name('locale');
 
+    Route::get('currency/{currencyCode}', 'MainController@changeCurrency')
+        ->name('currency');
+
 
     Route::group([
         'middleware' => 'auth',
